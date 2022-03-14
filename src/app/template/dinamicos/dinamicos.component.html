@@ -1,0 +1,86 @@
+<h2>Template: Dinamicos</h2>
+<hr>
+
+    <form (submit)="guardar()" #miFormulario="ngForm">
+
+        <!-- Nombre -->
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">Nombre</label>
+            <div class="col-sm-9">
+                <input  type="text"
+                        name="nombre"
+                        [ngModel]="persona.nombre"
+                        class="form-control"
+                        placeholder="Nombre de la persona"
+                        required>
+
+                <span   class="form-text text-danger"
+                        *ngIf="nombreInvalido()">
+                        Este campo es obligatorio
+                </span>
+            </div>
+        </div>
+
+        <!-- Agregar -->
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">Agregar</label>
+            <div class="col-sm-9">
+
+                <div class="input-group">
+                    <input  type="text"
+                            class="form-control"
+                            [(ngModel)]="nuevoJuego"
+                            (keyup.enter)="agregarFavorito()"
+                            name="nuevoJuego"
+                            placeholder="Agregar favorito">
+                    <button class="btn btn-outline-primary"
+                            type="button"
+                            (click)="agregarFavorito()">
+                        Agregar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Lista de juegos Favoritos -->
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">Favoritos</label>
+            <div class="col-sm-9">
+
+                <div class="input-group mb-1"
+                    *ngFor="let item of persona.favoritos; let i = index">
+
+                    <input [(ngModel)]="item.nombre"
+                            [name]="'juego' + i"
+                            class="form-control">
+    
+                            <!-- PERO SOLAMENTE PARA PINTAR, NO PERSISTE EN LOS DATOS -->
+                            <!-- [value]="item.nombre" -->
+                    <button class="btn btn-outline-danger"
+                            type="button"
+                            (click)="eliminar(i)">
+                        Eliminar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Boton Guardar -->
+        <div class="row">
+            <div class="col">
+                <button type="button"
+                        (click)="guardar()"
+                        [disabled]="miFormulario.invalid"
+                        class="btn btn-primary float-end">
+                    Guardar
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+    
+    <span>Valid</span>
+    <pre>{{ persona | json }}</pre>

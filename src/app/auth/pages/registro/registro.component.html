@@ -1,0 +1,123 @@
+<h2>Validaciones reactivas</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+
+        <form [formGroup]="miForm" (ngSubmit)="crearUsuario()">
+
+            <!--  Nombre -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Nombre</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                            class="form-control"
+                            formControlName="nombre"
+                            placeholder="Introduza el nombre">
+                    <span *ngIf="campoInvalido('nombre')" 
+                        class="form-text text-danger">
+                        Debe de ser en formato de nombre y apellido
+                    </span>
+                </div>
+            </div>
+
+            <!--  Mail -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Mail</label>
+                <div class="col-sm-9">
+                    <input type="mail"
+                            class="form-control"
+                            formControlName="mail"
+                            placeholder="Introduza el mail">
+                            
+                            <!-- *ngIf="emailError.length"  -->
+                    <span   *ngIf="campoInvalido('mail')" 
+                            class="form-text text-danger">
+                        {{emailError}}
+                    </span>
+                </div>
+            </div>
+
+            <!--  userName -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">userName</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                            class="form-control"
+                            formControlName="username"
+                            placeholder="Código del usuario">
+
+                    <span   *ngIf="campoInvalido('username')" 
+                            class="form-text text-danger">
+                        El username no es correcto
+                    </span>
+                </div>
+            </div>
+
+            <!--  password -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Password</label>
+                <div class="col-sm-9">
+                    <input type="password"
+                            class="form-control"
+                            formControlName="password"
+                            placeholder="Pass del usuario">
+
+                    <span   *ngIf="campoInvalido('password')" 
+                            class="form-text text-danger">
+                        El password debe tener 6 caracteres
+                    </span>
+                </div>
+            </div>
+
+            <!--  password -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Confirmar pass</label>
+                <div class="col-sm-9">
+                    <input type="password"
+                            class="form-control"
+                            formControlName="password2"
+                            placeholder="Confirmar">
+
+                    <span   *ngIf="campoInvalido('password2')" 
+                            class="form-text text-danger">
+                        El confirmar debe ser igual al password
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit" 
+                            class="btn btn-primary float-end"
+                            [disabled]="miForm.pending">
+                        Crear
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<h5>Valid: {{miForm.valid}}</h5>
+
+<h5>Errores de form: {{miForm.errors | json}}</h5>
+
+<h5>Status de form: {{miForm.status}}</h5>
+
+<hr>
+<h5>Nombre</h5>
+<pre>{{miForm.get('nombre')?.errors | json}}</pre>
+
+<h5>Mail</h5>
+<pre>{{miForm.get('mail')?.errors | json}}</pre>
+
+<h5>UserName</h5>
+<pre>{{miForm.get('username')?.errors | json}}</pre>
+
+<h5>Password</h5>
+<pre>{{miForm.get('password')?.errors | json}}</pre>
+
+<h5>Confirmar password</h5>
+<pre>{{miForm.get('password2')?.errors | json}}</pre>
